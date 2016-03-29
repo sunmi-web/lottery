@@ -1,0 +1,40 @@
+活动流程图:
+https://www.processon.com/view/link/56f3a73fe4b09a0e593b1e99
+
+手机号领券流程
+https://www.processon.com/view/link/56f4dca1e4b0d181b192adc2
+
+接口:
+   
+
+判断用户当天中奖情况:
+     getGift()
+url:http://www.web5.com/PhalApi/Public/app/?service=Index.getGift&phone=13604015689
+request:
+     phone
+response:
+      0 : 没有中奖
+     -4 : 请在指定店铺下单
+     -3 : 没有抽奖机会
+     -2 : 奖池为空
+      1 : 优惠券 (具体值待定)
+      4 : 实物中奖
+  
+
+   
+中到实物奖品的用户填写收货信息:
+      InsertReciveMsg()
+url:http://www.web5.com/PhalApi/Public/app/?service=Index.InsertReciveMsg&phone=13604015689
+request:
+    phone
+    //prizeName  奖品名
+    reciveName  收货人名字
+    reciveAdr   收货地址
+response:
+    null   
+  
+
+
+
+     
+

@@ -1,0 +1,47 @@
+http://wxyx.ideliver1.cn/yx20160328/Public/app/?service=Index.getGift&phone=1364454653     //用户抽奖调用
+
+request
+   phone  手机号
+response 
+  code=-5,prizeid=-1 //已下过单(针对新改需求，一次号码请求一次)
+  code=-4,prizeid=-1 //请在指定店铺下单
+  code=0,prizeid=-1//没有中奖
+  code=999999,prizeid=-1//异常
+  code=-2,prizeid=xx//奖池为空
+  code=1,prizeid=xx//优惠券
+  code=3,prizeid=>xx//三等奖
+  code=4,prizeid=xx//一二等奖
+
+
+（
+PS： id   name
+    1    小米音响
+    2    小米充电宝
+    3    小米耳机线
+    4    3元优惠券
+    5    2元优惠券
+    6    1元优惠券（1元仅在分享时用到，抽奖用不到）
+）
+ 
+http://wxyx.ideliver1.cn/yx20160328/Public/app/?service=Index.getAdr&prizeId=2     //获取领奖地址
+request
+  prizeId  奖品id
+response
+  地址字符串
+
+
+http://wxyx.ideliver1.cn/yx20160328/Public/app/?service=Index.InsertAdr&userid=1364454653&prizeId=2&recivephone=1364454653&recivename=我是收件人&reciveAdr=我是收件地址     //收货地址
+request
+  userid  手机号
+  prizeId  奖品id
+  recivephone  收件人手机号
+  recivename  收件人姓名
+  reciveAdr 我是收件地址
+
+http://wxyx.ideliver1.cn/yx20160328/Public/app/?service=Index.getCoupon&phone=1364454653
+request
+  phone  领取奖券的手机号
+response
+  -1  今天已领取
+  -2  奖池无剩余
+   1  中奖了
