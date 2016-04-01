@@ -9,6 +9,42 @@
 	<meta name="description" content="" />
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+		  //判断登录
+
+		  var url = window.location.href;
+		  url = url.split('?')[1];
+
+		  var arr = url.split('/');
+		  
+		  var keymap = [];
+		  for(item in arr){
+		  	if(arr[item]){
+		  		var key = arr[item].split('=');
+		  		keymap.push({
+		  			key:key[0],
+		  			value:key[1]
+		  		});
+		  	}
+		  }
+		  // localStorage.lotteryTimes = 1
+		var flag_exit=0;
+		var flag_hasPhone=0;
+		  for(item in keymap){
+		  	if(keymap[item].key==='stPhone'){
+		  		phone = keymap[item].value;
+		  		flag_hasPhone = 1;
+		  		if(phone){
+					flag_exit=1;
+					// localStorage.lotteryTimes = 1
+		  		}
+		  	}
+		  }
+		  if(flag_hasPhone==0){
+		  	window.location.href = 'redpack.html';
+		  }
+	</script>
 </head>
 
 <body>
@@ -16,63 +52,75 @@
 <!--各种弹框-->
 
 <!--登陆后再来-->
-<div class="window login" style="display: none">
+<div class="window login" id="alert-login" style="display: none">
      <img src="images/15.png">
-     <a class="btn" onclick="close()"><img src="images/24.png"></a></div>
+</div>
+<!--已经抽过-->
+<div class="window done" id="alert-done" style="display: none">
+     <img src="images/gotit.jpg">
+     <a class="btn"><img src="images/24.png"></a>
+     </div>
 <!--下单后再来-->
 <div class="window order" style="display: none">
      <img src="images/14.png">
-     <a class="btn" onclick="close()"><img src="images/24.png"></a></div>
+     <a class="btn"><img src="images/24.png"></a></div>
 <!--没中奖-->
-<div class="window noprize" id="#alert-noprize" style="display:none">
+<div class="window noprize" id="alert-noprize" style="display:none">
      <img src="images/29.png">
-     <a class="btn" onclick="close()"><img src="images/24.png"></a></div>
+     <a class="btn" ><img src="images/24.png"></a></div>
 <!--奖池已空-->
 <div class="window empty" id="alert-empty" style="display: none" >
      <img src="images/25.png">
-     <a class="btn" onclick="close()"><img src="images/24.png"></a></div>
+     <a class="btn" ><img src="images/24.png"></a></div>
 <!--yuan1-->
 <div class="window yuan1" id="alert-yuan1" style="display: none">
      <img src="images/17.png">
-     <a class="btn" onclick="close()"><img src="images/24.png"></a></div>
+     <a class="btn" ><img src="images/24.png"></a></div>
 <!--yuan2-->
 <div class="window yuan2" id="alert-yuan2"style="display: none">
      <img src="images/18.png">
-     <a class="btn" onclick="close()"><img src="images/24.png"></a></div>
+     <a class="btn" ><img src="images/24.png"></a></div>
 <!--yuan3-->
 <div class="window yuan3" id="alert-yuan3" style="display:none">
      <img src="images/19.png">
-     <a class="btn" onclick="close()" ><img src="images/24.png"></a></div>
+     <a class="btn"  ><img src="images/24.png"></a></div>
 <!--yuan5-->
 <div class="window yuan5" id="alert-yuan5" style="display:none">
      <img src="images/5yuan.png">
-     <a class="btn" onclick="close()"><img src="images/24.png"></a></div>
+     <a class="btn" ><img src="images/24.png"></a></div>
 <!--一等奖-->
-<div class="window champion" id="alert-first" style="display:none">
+<div class="submit champion" id="alert-first" style="display:none">
      <img src="images/20.png">
      <form>
 	         <input type="text" id="input1" name="name" placeholder="请输入姓名">
 	         <input type="text" id="input2" name="mobile" placeholder="请输入手机号码" maxlength="11">
 	         <input type="text" id="input3" name="mobile" placeholder="填写详细地址" >
 	  </form>
-     <img src="images/24.png" class="btn" style="top: 35vh"></div>
+     <img src="images/24.png" class="bt" onclick="sure()" style="top: 38vh"></div>
 <!--二等奖-->
-<div class="window second" id="alert-second" style="display:none">
+<div class="submit second" id="alert-second" style="display:none">
      <img src="images/21.png">
      <form>
-	         <input type="text" id="input1" name="name" placeholder="请输入姓名">
-	         <input type="text" id="input2" name="mobile" placeholder="请输入手机号码" maxlength="11">
-	         <input type="text" id="input3" name="mobile" placeholder="填写详细地址" >
+	         <input type="text" id="input4" name="name" placeholder="请输入姓名">
+	         <input type="text" id="input5" name="mobile" placeholder="请输入手机号码" maxlength="11">
+	         <input type="text" id="input6" name="mobile" placeholder="填写详细地址" >
 	  </form>
-     <img src="images/24.png" class="btn" style="top: 35vh"></div>
+     <img src="images/24.png" class="bt" onclick="ensure()" style="top: 39vh"></div>
 <!--三等奖-->
-<div class="window champion" id="alert-third" style="display:none">
-     <img src="images/chenghai.png">   
-     <img src="images/24.png" class="btn" style="top: 35vh"></div>
+<div class="window champion" id="alert-third" style="display:none; top:20vh">
+     <img src="images/chenghai.jpg">   
+     <img src="images/24.png" class="btn" onclick="close()" style="top: 70vh;"></div>
+<!--领奖成功-->
+<div class="window success" id="alert-success" style="display:none">
+     <img src="images/22.png">
+     <a class="btn" onclick="close()" ><img src="images/24.png"></a></div>
 <!--分享-->
-<div class="share" style="display: none"><img src="images/27.png"></div>
+<div class="share" id="share" style="display: none">
+      <img src="images/27.png">
+      <img src="images/28.png" style="width: 50vw; margin-left: 20vw" id="shut">
+</div>
 <!--遮罩-->
-<div class="popout" style="display: none"></div>
+<div class="popout" id="popout" style="display: none"></div>
 
 
 
@@ -81,13 +129,13 @@
 		<div id="lottery">
 			<table style="position: absolute; border-spacing:6px;"   >
 				<tr >
-					<td class="lottery-unit lottery-unit-0"><img src="images/101.png"></td>
+					<td class="lottery-unit lottery-unit-0"><img src="images/110.png"></td>
 					<td class="lottery-unit lottery-unit-1"><img src="images/102.png"></td>
 					<td class="lottery-unit lottery-unit-2"><img src="images/103.png"></td>
 				</tr>
 				<tr>
 					<td class="lottery-unit lottery-unit-7"><img src="images/104.png"></td>
-					<td colspan="1" rowspan="1"><a href="#"><img src="images/105.png"></a></td>
+					<td colspan="1" rowspan="1"><a id="lottery_a"><img src="images/105.png"></a></td>
 					<td class="lottery-unit lottery-unit-3"><img src="images/106.png"></td>
 				</tr>
 				<tr>
@@ -96,15 +144,85 @@
 					<td class="lottery-unit lottery-unit-4"><img src="images/109.png"></td>
 				</tr>
 			</table>
-			<img src="images/2.png" style="margin-top: -70px">
+			<img src="images/2.png" style="margin-top: -95px">
 		</div>
 		<img src="images/foot.png" >
 	</div>
 
 
 
-  <script src="js/jquery-1.8.3.min.js"></script>
+  
   <script type="text/javascript">
+  			// alert(flag_exit);
+		  if(flag_exit==0){
+			$("#alert-login").fadeIn('fast')
+		  }
+//   //判断登录
+//   var url = window.location.href;
+//   url = url.split('?')[1];
+
+//   var arr = url.split('/');
+  
+//   var keymap = [];
+//   for(item in arr){
+//   	if(arr[item]){
+//   		var key = arr[item].split('=');
+//   		keymap.push({
+//   			key:key[0],
+//   			value:key[1]
+//   		});
+//   	}
+//   }
+//   // localStorage.lotteryTimes = 1
+// var flag_exit=0;
+//   for(item in keymap){
+//   	if(keymap[item].key==='stPhone'){
+//   		phone = keymap[item].value;
+//   		if(phone){
+// 			flag_exit++;
+// 			// localStorage.lotteryTimes = 1
+//   		}
+//   	}
+//   }
+//   if(flag_exit==0){
+// 	$("#alert-login").fadeIn('fast')
+//   }
+  // if(flag_exit)
+// alert(flag_exit);
+  // alert(keymap[0].value);
+ //  if(url){
+ //    var param = url.split("/st");
+ //    var p;
+	
+	// for(var i = 0; i < param.length; i++) {
+ //      p = param[i].split('=');
+ //      if(p[0] == "fx" && p[1]) {
+		
+// //  http://wxyx.ideliver1.cn/yx20160224/PhalApi/Public/app/?service=Index.doShare&phone=13607095644
+// // request：
+// // phone：用户手机号码
+// // response：
+// // null
+ 		
+// 		// var d = "Index.doShare&phone=" + phone;
+// 		// activityQuery(d, function(r){});
+//   //       break;
+//       }
+//     }
+	
+//     for(var i = 0; i < param.length; i++) {
+//       p = param[i].split('=');
+//       if(p[0] == "Phone" && p[1]) {
+//         phone = p[1];
+//         begin();
+//         return;
+//       }
+//     }
+//   }
+	
+  //没有登录
+  // $("#alert-login").fadeIn('fast')
+
 var lottery={
 	index:-1,	//当前转动到哪个位置，起点位置
 	count:0,	//总共有多少个位置
@@ -196,41 +314,54 @@ function activityQuery(api,params,callback){
         }
     });
 }
-	var r = {};
-	r.data = {};
+
+stopStatus = '';
+PrizeId = '';
+	// r = {};
+	// r.data = {};
 // console.log(r);
-		r.data.code = '4';
-		r.data.prizeid=2;
+		// r.data.code = '4';
+		// r.data.prizeid=1;
+
+
+
+
+
 
 var setStop = function (){
-		switch(r.data.code){
+   		
+		switch(stopStatus){
 			// case '-4':
 			// $("")
 			// break;
+			case '-5':
+				lottery.stop(5);
+			break;
 			case '0':
 				lottery.stop(5);
-				$('#alert-noprize').show()
+				
 			break;
 			case '999999':
 
 			break;
 			case '-2':
-	            $('#alert-empty').show();
+	            lottery.stop(PrizeId)
 			break;
 			case '1':
 				console.log('Coming')
 				
-				if(r.data.prizeid==4){
+				if(PrizeId=="4"){
 					console.log("Coming.I'm in");
 					lottery.stop(6);
 				};
-				if(r.data.prizeid==5){
+				
+				if(PrizeId=="5"){
 					lottery.stop(2);
 				};
-				if(r.data.prizeid==6){
+				if(PrizeId=="6"){
 					lottery.stop(0);
 				};
-	            if(r.data.prizeid==7){
+	            if(PrizeId=="7"){
 					lottery.stop(4);
 				};
 
@@ -240,10 +371,10 @@ var setStop = function (){
 			    lottery.stop(7);
 			break;
 			case '4':
-	              if(r.data.prizeid==2){
+	              if(PrizeId=="2"){
 	              	lottery.stop(3)
 	              };
-	              if(r.data.prizeid==1){
+	              if(PrizeId=="1"){
 	              	lottery.stop(1)
 	              };
 			break;
@@ -251,12 +382,16 @@ var setStop = function (){
 }
 var showAlert = function(){
 	// $('#alert-yuan3').show();
-	switch(r.data.code){
+	switch(stopStatus){
 		// case '-4':
 		// $("")
 		// break;
+		case '-5':
+			// lottery.stop(5);
+			$('#alert-noprize').show()
+		break;
 		case '0':
-			lottery.stop(5);
+			// lottery.stop(5);
 			$('#alert-noprize').show()
 		break;
 		case '999999':
@@ -268,17 +403,17 @@ var showAlert = function(){
 		case '1':
 			console.log('Coming')
 			
-			if(r.data.prizeid==4){
+			if(PrizeId==4){
 				console.log("Coming.I'm in");
 				$('#alert-yuan3').show()
 			};
-			if(r.data.prizeid==5){
+			if(PrizeId==5){
 				$('#alert-yuan2').show()
 			};
-			if(r.data.prizeid==6){
+			if(PrizeId==6){
 				$('#alert-yuan1').show()
 			};
-            if(r.data.prizeid==7){
+            if(PrizeId==7){
 				$('#alert-yuan5').show()
 			};
 
@@ -288,88 +423,146 @@ var showAlert = function(){
 			$('#alert-third').show()
 		break;
 		case '4':
-              if(r.data.prizeid==2){
+              if(PrizeId==2){
               	$('#alert-second').show()
               };
-              if(r.data.prizeid==1){
+              if(PrizeId==1){
               	$('#alert-first').show()
               };
 		break;
 	}
 }
-localStorage.lotteryTimes = 1;
+
 var click=false;
 window.onload=function(){
 	lottery.init('lottery');
-	$("#lottery a").click(function(){
+	$("#lottery_a").click(function(){
 		if (click) {
+
 			return false;
 		}else{
-			if(localStorage.lotteryTimes<1){
-				return;
-			}
+			// if(localStorage.lotteryTimes<1){
+			// 	return;
+			// }
 
 		// 	var r = {};
 		// 	r.data = {};
 		// // console.log(r);
 		// 		r.data.code = '1';
 		// 		r.data.prizeid=4;
+			// console.log('lalal')
+			activityQuery('Index.getGift',{
+				phone:phone
+			}, function(r){
+				stopStatus = r.data.code.toString();
+				PrizeId = parseInt(r.data.prizeid);
+				// alert(stopStatus);
+				// alert(PrizeId);
+				// stopStatus="-2";
+				// PrizeId=0;
 				lottery.speed=100;
-				
 				// setTimeout(lottery.roll(),lottery.speed);
+				// alert(r.data.code)
 				click=true;
+				if (r.data.code=='-5') {
+					// 今天已经抽过
+					$("#alert-done").show()
+					return;
+				};
 				setStop();
 				roll();
-				localStorage.lotteryTimes--;
-			// console.log('lalal')
-			// activityQuery('Index.getGift',{
-			// 	phone:'1364454653'
-			// }, function(r){
-
-			// 	// console.log(r);
-			// 	lottery.speed=100;
-			// 	roll();
-			// 	click=true;
-			// 	switch(r.data.code){
-			// 		case '-4':
-			// 		// 弹窗
-			// 		break;
-			// 		case '0':
-			// 			lottery.stop(5);
-			// 		break;
-			// 		case '999999':
-
-			// 		break;
-			// 		case '-2':
-
-			// 		$('#alert-empty').show();
-			// 		break;
-			// 		case '1':
-			// 		  // code=1,prizeid=xx//优惠券
-			// 			$('#alert-coupon').show()
-			// 			// lottery.stop(0,2,4,6);
-			// 			if(r.data.prizeid==4){
-			// 				lottery.stop(6);
-			// 			}
-			// 		break;
-			// 		case '3':
-			// 		  // code=3,prizeid=>xx//三等奖
-			// 			$('#alert-third').show()
-			// 		break;
-			// 		case '4':
-
-			// 		break;
-			// 	}
-			// 	return false;
-			// });
+				// localStorage.lotteryTimes--;
+			});
 		}
 	});
 };
 
 
+//弹窗
+// function close(){
+// 	$(".window").fadeOut('fast');
+// }
+//确定按钮
+$(document).ready(function(){
+
+  $(".btn").on("click", function(){
+    $(".window").fadeOut('fast');
+    $("#popout").fadeIn('fast')
+    $("#share").fadeIn('fast')
+
+  });
 
 
+  $("#shut").on("click",function(){
+  	$("#share").fadeOut('fast')
+  	$("#popout").fadeOut('fast')
+  })
+});
 
+//二等奖提交判断
+function ensure(){
+  var uname = document.getElementById("input4").value;
+  var phone = document.getElementById("input5").value;
+  var add = document.getElementById("input6").value;
+
+  if(uname == "" || phone == "" || add == ""){
+    alert("请正确录入信息")
+    return;
+  }
+
+  var reg = /^1\d{10}$/;
+
+  if(!reg.test(phone)){
+    alert("不是完整的11位手机号");
+    return;
+  }
+ 
+ activityQuery('Index.InsertAdr',{
+  userid: phone ,//手机号
+  prizeId: 2 ,//奖品id
+  recivephone: phone ,//收件人手机号
+  recivename: uname ,//收件人姓名
+  reciveAdr: add//我是收件地址
+}, function(r){
+    $("#alert-second").fadeOut('fast');
+    $("#alert-success").fadeIn('fast');
+})
+
+
+  }
+
+//一等奖提交判断
+function sure(){
+  var username = document.getElementById("input1").value;
+  var userphone = document.getElementById("input2").value;
+  var useradd = document.getElementById("input3").value;
+
+  if(username == "" || userphone == "" || useradd == ""){
+    alert("请正确录入信息")
+    return;
+  }
+
+  var reg = /^1\d{10}$/;
+
+  if(!reg.test(userphone)){
+    alert("不是完整的11位手机号");
+    return;
+  }
+ 
+ activityQuery('Index.InsertAdr',{
+  userid: userphone ,//手机号
+  prizeId: 1 ,//奖品id
+  recivephone: userphone ,//收件人手机号
+  recivename: username ,//收件人姓名
+  reciveAdr: useradd//我是收件地址
+}, function(r){
+    $("#alert-first").fadeOut('fast');
+    $("#alert-success").fadeIn('fast');
+   
+})
+
+
+  }
 </script>
 <!--效果html结束-->
 <div class="clear"></div>

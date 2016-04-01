@@ -12,22 +12,112 @@
 </head>
 
 <body>
+   
+
+
+
+ <!--优惠券发完了-->
+    <div class="window out" id="alert-out" style="display:none" >
+     <img src="images/tsk1.png">
+     <a class="btn"style="top:65vh"><img src="images/24.png"></a></div>
+<!--已领取-->
+    <div class="window got" id="alert-got" style="display: none" >
+     <img src="images/tsk2.png">
+     <a class="btn" style="top:65vh"><img src="images/24.png"></a></div>
+<!--领券成功-->
+    <div class="useit" id="alert-useit" style="display: none" >
+     <img src="images/red4.png">
+     <a href="http://www.woyouwaimai.com/#" class="button" ><img src="images/red5.png"></a></div>
 
 	<div class="mainbody">
 		<img src="images/red01.png">
 		<div class="info">
 		   <input type="text" id="phonenumber" name="mobile" placeholder="请输入手机号码" maxlength="11">
-		   <a href=""><img src="images/red3.png"></a>
+		   <a href="javascript:void(0)" onclick="submit()"><img src="images/red3.png" style="width: 60vw; margin-top: 20px; margin-left: 20vw"></a>
 		</div>
-		<img src="images/red03.png">
+		<img src="images/red03.png" >
 		
 		
 	</div>
 
 
 
- 
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript">
 
+  $(".btn").on("click",function(){
+  	console.log('lalall');
+       $(".window").fadeOut('fast')
+});
+  //请求
+function activityQuery(api,params,callback){
+	var api_url = "http://wxyx.ideliver1.cn/yx20160328/Public/app/?service=";
+    if(typeof(api_url) == 'string'){
+        var fullapi = api_url + api;
+    }
+    $.ajax({
+        async      : true,
+        url        : fullapi,
+        method     : 'GET',
+        data:params,
+        success    : function(r){
+            if(r.ret == 200){
+                callback(r);
+            }
+        }
+    });
+}
+	var r = {};
+	r.data = {};
+
+
+
+  function submit(){
+  	number = document.getElementById("phonenumber").value;
+  	 var reg = /^1\d{10}$/;
+
+	if(!reg.test(number)){
+	alert("不是完整的11位手机号");
+	return;
+	}
+	if(number == ""){
+	alert("请输入手机号码")
+	return;
+	}
+	console.log(30, document.getElementById("phonenumber").value);
+	activityQuery('Index.getCoupon',{'phone' : document.getElementById("phonenumber").value}, function(r){
+		
+		// var msg = r.data == -1?"今天已领奖":((r.data == -2)?"奖池无剩余":"中奖了");
+		// alert(msg)
+		if(r.data=="-1"){
+
+			$('#alert-got').show();
+		}else if(r.data=="-2"){
+			$('#alert-out').show();
+		}else{
+			$('#alert-useit').show();
+		}
+ 	})
+      
+  }
+
+
+//   function begin(){
+//   var d = "Index.sendPhone&phone="+phone;
+//   activityQuery(d, function(r){});
+//   activityQuery("Index.getClientList", function(r){
+//     lists       = r.data;
+//     clientLists = document.getElementsByClassName("list-inline")[0];
+//     var ss      = "";
+//     for(var i = 0; i < lists.length; i++){
+//       ss += "<li>" + "<img class='piclist'  src='" + lists[i].cimg + "'>" + "<img class='check' src='images/38.png' onclick = 'checkClick(this)'>" + "<span>票数：" + lists[i].votes + "</span>" + "</li>";
+
+//     }
+//     clientLists.innerHTML = ss;
+//   });
+// }
+
+  </script>
 	
 </body>
 </html>
